@@ -1,7 +1,3 @@
-# This GitHub Actions workflow is designed to execute Cypress tests across all supported browsers.
-# It supports manual triggers and utilizes a matrix strategy to run tests on
-# CHROME, FIREFOX, ELECTRON, and EDGE browsers.
-
 name: 03_All Supported Browsers
 
 on:
@@ -10,45 +6,48 @@ on:
 
 jobs:
   ui_tests_ALL_browsers:
-    # Define the machine on which tests will execute
     runs-on: ubuntu-latest
 
     # Step 1: Use matrix strategy for parallel test execution on different browsers
     strategy:
       matrix:
         browser: [CHROME, FIREFOX, ELECTRON, EDGE]
+
     steps:
-      # Step 1: Checking out the code from the GitHub repository to the machine (ubuntu-latest)
+      # Step 2: Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v4
-      # Step 2: Installing Node.js
-      - name: Install Node.js
+
+      # Step 3: Install Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-      # Step 3: Ensure package-lock.json exists before running npm ci
+          node-version: 18  # Use the latest LTS version
+
+      # Step 4: Ensure package-lock.json exists before running npm ci
       - name: Check for package-lock.json
         run: |
           if [ ! -f package-lock.json ]; then
             echo "package-lock.json not found, running npm install to generate it..."
             npm install
           fi
-      # Step 4: Install dependencies
+
+      # Step 5: Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # Step 5: Ensure Cypress is installed
+      # Step 6: Ensure Cypress is installed
       - name: Install Cypress
         run: npx cypress install
 
-      # Step 6: Run Cypress tests on Chrome browser
-      - name: Run Cypress UI tests
+      # Step 7: Run Cypress tests for the specific browser from the matrix
+      - name: Run Cypress UI tests on ${{ matrix.browser }}
         run: npm run cy:tests:${{ matrix.browser }}
 
-      # Step 7: Upload test reports as artifacts (ensure the path exists)
+      # Step 8: Upload test reports as artifacts (unique name for each browser)
       - name: Upload Reports
-        if: success() || failure() # Ensure reports are uploaded even on failure
+        if: success() || failure()  # Ensures reports are uploaded even if tests fail
         uses: actions/upload-artifact@v4
         with:
-         name: UI-Tests-Report-${{ github.run_id }}  # Unique name for each run
-         path: cypress/reports
+          name: UI-Tests-Report-${{ matrix.browser }}  # Unique artifact name per browser
+          path: cypress/reports
