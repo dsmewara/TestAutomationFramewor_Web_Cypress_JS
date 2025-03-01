@@ -1,5 +1,3 @@
-
-
 /***************************************************/
 
 // Import the `defineConfig` function from Cypress
@@ -42,15 +40,22 @@ module.exports = defineConfig({
     saveAllAttempts: false,
   },
 
-  //chromeWebSecurity:false,
-
-  
-
-  // Setup Node events for Cypress (in this case, use the mochawesome reporter plugin)
   e2e: {
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      // Enable mochawesome reporter plugin
       require('cypress-mochawesome-reporter/plugin')(on);
+
+      // Ensure web security is enabled for Firefox, but disabled for other browsers
+      if (config.browser.name === 'firefox') {
+        config.chromeWebSecurity = true;
+      } else {
+        config.chromeWebSecurity = false;
+      }
+
+      return config;
     },
+
+    // Default setting for non-Firefox browsers
+    chromeWebSecurity: false, 
   },
 });
