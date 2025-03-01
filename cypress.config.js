@@ -42,7 +42,9 @@ module.exports = defineConfig({
     saveAllAttempts: false,
   },
 
-  chromeWebSecurity:false,
+  //chromeWebSecurity:false,
+
+  
 
   // Setup Node events for Cypress (in this case, use the mochawesome reporter plugin)
   e2e: {
