@@ -3,10 +3,7 @@
 // Import the `defineConfig` function from Cypress
 const { defineConfig } = require("cypress");
 
-// Export the Cypress configuration using the defineConfig function
 module.exports = defineConfig({
-
-  // https://docs.cypress.io/guides/references/configuration
 
   // Set environment variables, in this case, the URL of the application under test
   env: {
@@ -45,8 +42,8 @@ module.exports = defineConfig({
       // Enable mochawesome reporter plugin
       require('cypress-mochawesome-reporter/plugin')(on);
 
-      // Ensure web security is enabled for Firefox, but disabled for other browsers
-      if (config.browser.name === 'firefox') {
+      // Ensure `config.browser` is defined before accessing properties
+      if (config.browser && config.browser.name === 'firefox') {
         config.chromeWebSecurity = true;
       } else {
         config.chromeWebSecurity = false;
