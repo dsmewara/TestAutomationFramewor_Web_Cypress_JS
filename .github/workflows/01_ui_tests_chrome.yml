@@ -25,11 +25,10 @@ jobs:
     steps:
       # Step 1: Checking out the code from the GitHub repository to the machine (ubuntu-latest)
       - name: Checkout code
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v4
       # Step 2: Installing Node.js
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 16
 
