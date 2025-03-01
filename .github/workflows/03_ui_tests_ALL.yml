@@ -50,5 +50,5 @@ jobs:
         if: success() || failure() # Ensure reports are uploaded even on failure
         uses: actions/upload-artifact@v4
         with:
-          name: UI Tests Report
-          path: cypress/reports
+         name: UI-Tests-Report-${{ github.run_id }}  # Unique name for each run
+         path: cypress/reports
