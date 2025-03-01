@@ -38,17 +38,21 @@ jobs:
             echo "package-lock.json not found, running npm install to generate it..."
             npm install
           fi
-
-      # Step 4: Installing dependencies required for Cypress
+     # Step 4: Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # Step 5: Run Cypress tests on Chrome browser
+      # Step 5: Ensure Cypress is installed
+      - name: Install Cypress
+        run: npx cypress install
+
+      # Step 6: Run Cypress tests on Chrome browser
       - name: Run Cypress UI tests
         run: npm run cy:tests:CHROME
 
-      # Step 6: Upload test reports as artifacts
+      # Step 7: Upload test reports as artifacts (ensure the path exists)
       - name: Upload Reports
+        if: success() || failure()  # Ensure reports are uploaded even on failure
         uses: actions/upload-artifact@v4
         with:
           name: UI Tests Report
