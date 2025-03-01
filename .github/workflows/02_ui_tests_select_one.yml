@@ -26,13 +26,13 @@ jobs:
     steps:
       # Checking out the code from Github repository to the machine (ubuntu-latest)
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Installing Node JS
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
       
       # Installing dependencies required for Cypress
       - name: Install dependencies
