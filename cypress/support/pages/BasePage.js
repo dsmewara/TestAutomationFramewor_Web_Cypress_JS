@@ -1,6 +1,3 @@
-_
-
-/***************************************************/
 
 /**
  * BasePage class contains common methods to interact with web elements.

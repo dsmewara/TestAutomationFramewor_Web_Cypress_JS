@@ -1,7 +1,5 @@
 
 
-/***************************************************/
-
 /**
  * CartPage class representing the products page of the application.
  */
