@@ -9,7 +9,7 @@
     "cy:tests:ELECTRON:HEADLESS": "cypress run --spec cypress/e2e/Sauce_Demo/*.cy.js",
     "cy:tests:ELECTRON": "cypress run --spec cypress/e2e/Sauce_Demo/*.cy.js --headed",
     "cy:tests:CHROME": "cypress run --spec cypress/e2e/Sauce_Demo/*.cy.js --headed --browser chrome",
-    "cy:tests:FIREFOX": "cypress run --spec cypress/e2e/Sauce_Demo/*.cy.js --headed --browser firefox",
+    "cy:tests:FIREFOX": "cypress run --spec cypress/e2e/Sauce_Demo/Login.cy.js --headed --browser firefox",
     "cy:tests:EDGE": "cypress run --spec cypress/e2e/Sauce_Demo/*.cy.js --headed --browser edge",
     "cy:tests:ELECTRON:Tag:SANITY": "cypress run --spec cypress/e2e/Sauce_Demo/*.cy.js --headed --env grep=@sanity",
     "cy:tests:ELECTRON:Tag:REGRESSION": "cypress run --spec cypress/e2e/Sauce_Demo/*.cy.js --headed --env grep=@regression"
